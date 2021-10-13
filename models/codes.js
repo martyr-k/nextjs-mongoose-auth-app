@@ -52,4 +52,5 @@ codeSchema.pre("save", async function (next) {
 codeSchema.methods.comparePassword = async (candidatePassword, userPassword) =>
   bcrypt.compare(candidatePassword, userPassword);
 
+// prevents mongoose from recompiling the model
 export default mongoose.models.Code || mongoose.model("Code", codeSchema);
