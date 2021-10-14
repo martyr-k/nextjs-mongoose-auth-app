@@ -1,14 +1,14 @@
 import nc from "next-connect";
 
 import dbConnect from "../../lib/dbConnect";
-import Code from "../../models/codes";
+import User from "../../models/users";
 
 const handler = nc();
 
 handler.use(dbConnect).get(async (req, res) => {
-  const guests = await Code.find();
+  const users = await User.find();
 
-  res.status(200).json({ status: "success", data: guests });
+  res.status(200).json({ status: "success", data: users });
 });
 
 export default handler;
