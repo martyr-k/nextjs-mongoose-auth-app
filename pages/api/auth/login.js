@@ -1,5 +1,4 @@
 import nc from "next-connect";
-import jwt from "jsonwebtoken";
 
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/users";
@@ -10,7 +9,7 @@ handler.use(dbConnect).post(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    console.log("Missing credentials, please try again.");
+    console.log("Please provide an email address and password.");
   }
 
   const user = await User.findOne({
@@ -25,3 +24,5 @@ handler.use(dbConnect).post(async (req, res) => {
     // - send jwt?
   }
 });
+
+export default handler;
