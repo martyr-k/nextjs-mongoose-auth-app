@@ -27,17 +27,12 @@ handler.use(dbConnect).post(async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      data: {
-        ...user,
-        token: generateJWT(user._id),
-      },
+      token: generateJWT(user._id),
     });
   } catch (error) {
     res.status(400).json({
       status: "failure",
-      data: {
-        message: error.message,
-      },
+      message: error.message,
     });
   }
 });

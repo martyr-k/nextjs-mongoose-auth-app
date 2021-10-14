@@ -17,11 +17,12 @@ const SignUp = () => {
         password: passwordRef.current.value,
       });
 
-      const { data: user } = response.data;
-      console.log(user);
+      const { token } = response.data;
+      console.log(token);
+      // - save to SWR
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.data.message);
+        console.log(error.response.data.message);
       }
       console.log(error);
     }
