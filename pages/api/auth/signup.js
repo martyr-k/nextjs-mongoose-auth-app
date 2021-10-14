@@ -27,7 +27,10 @@ handler.use(dbConnect).post(async (req, res) => {
 
     res.status(201).json({
       status: "success",
-      token: generateJWT(user._id),
+      user: {
+        email,
+        token: generateJWT(user._id),
+      },
     });
   } catch (error) {
     res.status(400).json({

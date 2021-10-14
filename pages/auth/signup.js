@@ -1,12 +1,23 @@
 import axios from "axios";
-import { useRef } from "react";
+import Router from "next/router";
+import { useState, useRef, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import useUser from "../../lib/user";
+
 const SignUp = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const { user, mutate } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      Router.replace("/");
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     try {
@@ -17,9 +28,7 @@ const SignUp = () => {
         password: passwordRef.current.value,
       });
 
-      const { token } = response.data;
-      console.log(token);
-      // - save to SWR
+      mutate({ user: response.data.user }, false);
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
