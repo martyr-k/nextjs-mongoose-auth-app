@@ -1,4 +1,5 @@
 import nc from "next-connect";
+import jwt from "jsonwebtoken";
 
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/users";
