@@ -1,14 +1,19 @@
 import nc from "next-connect";
 
 import dbConnect from "lib/dbConnect";
-import User from "models/users";
+import { isAuthenticated } from "lib/middleware";
 
 const handler = nc();
 
-handler.use(dbConnect).get(async (req, res) => {
-  const users = await User.find();
-
-  res.status(200).json({ status: "success", data: users });
+handler.use(dbConnect, isAuthenticated).get(async (req, res) => {
+  try {
+    res.status(200).json({ status: "success", user: req.user });
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error.message,
+    });
+  }
 });
 
 export default handler;
