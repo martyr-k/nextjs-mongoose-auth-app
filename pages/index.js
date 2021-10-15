@@ -24,11 +24,15 @@ const Home = () => {
     })();
   }, [token]);
 
+  return <h1>Hello {currentUser?.email}!</h1>;
+};
+
+const HomePage = () => {
   return (
     <PrivateRoute>
-      <h1>Hello {currentUser?.email}!</h1>
+      <Home />
     </PrivateRoute>
   );
 };
 
-export default Home;
+export default HomePage;
