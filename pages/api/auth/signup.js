@@ -1,14 +1,8 @@
 import nc from "next-connect";
-import jwt from "jsonwebtoken";
 
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/users";
-
-const generateJWT = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
-};
+import { generateJWT } from "../../../utils/helpers";
 
 const handler = nc();
 
