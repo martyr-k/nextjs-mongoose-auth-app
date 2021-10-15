@@ -9,9 +9,9 @@ const generateToken = (userId) => {
 export const sendToken = (statusCode, user, req, res) => {
   res.status(statusCode).json({
     status: "success",
-    user: {
-      email: user.email,
-      token: generateToken(user._id),
+    token: {
+      value: generateToken(user._id),
+      expiry: Date.now(),
     },
   });
 };

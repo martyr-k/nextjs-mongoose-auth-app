@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useUser } from "contexts/UserContext";
+import { useAuthentication } from "contexts/AuthenticationContext";
 
 const PrivateRoute = ({ children }) => {
-  const { user } = useUser();
+  const { token } = useAuthentication();
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    if (!token) {
       // - toast message?
       router.push("/auth/login");
     } else {
       setAuthorized(true);
     }
-  }, [user, router]);
+  }, [token, router]);
 
   return authorized && children;
 };

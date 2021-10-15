@@ -5,18 +5,18 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { useUser } from "contexts/UserContext";
+import { useAuthentication } from "contexts/AuthenticationContext";
 
 const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const { user, setUser } = useUser();
+  const { token, setToken } = useAuthentication();
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       Router.replace("/");
     }
-  }, [user]);
+  }, [token]);
 
   const handleSubmit = async (event) => {
     try {
@@ -27,7 +27,7 @@ const Login = () => {
         password: passwordRef.current.value,
       });
 
-      setUser(response.data.user);
+      setToken(response.data.token);
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);

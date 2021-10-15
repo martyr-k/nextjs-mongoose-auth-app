@@ -1,12 +1,12 @@
-import { UserProvider, useUser } from "contexts/UserContext";
+import { AuthenticationProvider } from "contexts/AuthenticationContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App({ Component, pageProps }) {
   return (
-    <UserProvider>
+    <AuthenticationProvider>
       <Component {...pageProps} />
-    </UserProvider>
+    </AuthenticationProvider>
   );
 }
 

@@ -1,8 +1,8 @@
 import PrivateRoute from "components/PrivateRoute";
-import { useUser } from "contexts/UserContext";
+import { useAuthentication } from "contexts/AuthenticationContext";
 
 const Home = () => {
-  const { user } = useUser();
+  const { token } = useAuthentication();
 
   return (
     <PrivateRoute>
