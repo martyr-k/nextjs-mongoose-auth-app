@@ -12,11 +12,11 @@ const Login = () => {
   const passwordRef = useRef(null);
   const { user, setUser } = useUser();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     Router.replace("/");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      Router.replace("/");
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     try {
@@ -28,7 +28,6 @@ const Login = () => {
       });
 
       setUser(response.data.user);
-      Router.replace("/");
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);

@@ -12,16 +12,16 @@ function RouteGuard({ children }) {
     // on initial load - run auth check
     authCheck(router.asPath);
 
-    // on route change start - hide page content by setting authorized to false
-    const hideContent = () => setAuthorized(false);
-    router.events.on("routeChangeStart", hideContent);
+    // // on route change start - hide page content by setting authorized to false
+    // const hideContent = () => setAuthorized(false);
+    // router.events.on("routeChangeStart", hideContent);
 
     // on route change complete - run auth check
-    router.events.on("routeChangeComplete", authCheck);
+    router.events.on("routeChangeComplete", verifyAuth);
 
-    // unsubscribe from events in useEffect return function
+    // // unsubscribe from events in useEffect return function
     return () => {
-      router.events.off("routeChangeStart", hideContent);
+      //   router.events.off("routeChangeStart", hideContent);
       router.events.off("routeChangeComplete", authCheck);
     };
 
@@ -32,14 +32,28 @@ function RouteGuard({ children }) {
     // redirect to login page if accessing a private page and not logged in
     const publicPaths = ["/auth/login", "/auth/signup"];
     const path = url.split("?")[0];
-    console.log(user);
+
     if (!user && !publicPaths.includes(path)) {
       setAuthorized(false);
       router.push({
         pathname: "/auth/login",
       });
     } else {
-      console.log("booo");
+      setAuthorized(true);
+    }
+  }
+
+  function verifyAuth(url) {
+    const publicPaths = ["/auth/login", "/auth/signup"];
+    const path = url.split("?")[0];
+    console.log(path);
+    console.log(user);
+
+    if (!user && !publicPaths.includes(path)) {
+      console.log("i'm not here!");
+      setAuthorized(false);
+    } else {
+      console.log("i'm here!");
       setAuthorized(true);
     }
   }
