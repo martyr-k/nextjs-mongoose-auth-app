@@ -1,7 +1,7 @@
 import nc from "next-connect";
 
-import dbConnect from "../../../lib/dbConnect";
-import User from "../../../models/users";
+import dbConnect from "lib/dbConnect";
+import User from "models/users";
 
 const handler = nc();
 

@@ -2,8 +2,8 @@ import nc from "next-connect";
 import jwt from "jsonwebtoken";
 const { promisify } = require("util");
 
-import dbConnect from "../../../lib/dbConnect";
-import User from "../../../models/users";
+import dbConnect from "lib/dbConnect";
+import User from "models/users";
 
 const handler = nc();
 

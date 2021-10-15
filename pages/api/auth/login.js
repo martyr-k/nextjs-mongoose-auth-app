@@ -1,8 +1,8 @@
 import nc from "next-connect";
 
-import dbConnect from "@lib/dbConnect";
-import User from "@models/users";
-import { sendToken } from "@utils/helpers";
+import dbConnect from "lib/dbConnect";
+import User from "models/users";
+import { sendToken } from "utils/helpers";
 
 const handler = nc();
 
