@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "contexts/UserContext";
 
-const RouteGuard = ({ children }) => {
+const PrivateRoute = ({ children }) => {
   const { user } = useUser();
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
@@ -19,4 +19,4 @@ const RouteGuard = ({ children }) => {
   return authorized && children;
 };
 
-export default RouteGuard;
+export default PrivateRoute;

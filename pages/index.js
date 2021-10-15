@@ -1,13 +1,13 @@
-import RouteGuard from "components/RouteGuard";
+import PrivateRoute from "components/PrivateRoute";
 import { useUser } from "contexts/UserContext";
 
 const Home = () => {
   const { user } = useUser();
 
   return (
-    <RouteGuard>
+    <PrivateRoute>
       <h1>Hello {user?.email}!</h1>
-    </RouteGuard>
+    </PrivateRoute>
   );
 };
 
