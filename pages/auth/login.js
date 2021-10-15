@@ -1,22 +1,22 @@
 import axios from "axios";
 import Router from "next/router";
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { UserContext } from "contexts/UserContext";
+import { useUser } from "contexts/UserContext";
 
 const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
-  useEffect(() => {
-    if (user) {
-      Router.replace("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     Router.replace("/");
+  //   }
+  // }, [user]);
 
   const handleSubmit = async (event) => {
     try {
@@ -28,6 +28,7 @@ const Login = () => {
       });
 
       setUser(response.data.user);
+      Router.replace("/");
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);

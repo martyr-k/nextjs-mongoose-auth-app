@@ -1,16 +1,16 @@
 import axios from "axios";
 import Router from "next/router";
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { UserContext } from "contexts/UserContext";
+import { useUser } from "contexts/UserContext";
 
 const SignUp = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     if (user) {

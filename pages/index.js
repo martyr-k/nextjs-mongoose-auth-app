@@ -1,11 +1,7 @@
-import { useContext } from "react";
-
-import { UserContext } from "../contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
-
-  console.log(user);
+  const { user } = useUser();
 
   return <h1>Hello {user.email}!</h1>;
 };
