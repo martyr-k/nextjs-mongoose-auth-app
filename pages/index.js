@@ -1,7 +1,9 @@
-import useUser from "../lib/user";
+import { useContext } from "react";
+
+import { UserContext } from "../contexts/UserContext";
 
 const Home = () => {
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   console.log(user);
 

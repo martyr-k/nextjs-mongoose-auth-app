@@ -9,17 +9,6 @@ const handler = nc();
 
 handler.use(dbConnect).get(async (req, res) => {
   try {
-    const { token } = req.query;
-
-    if (!token) {
-      throw new Error("Please login to access this route.");
-    }
-
-    const decodedToken = await promisify(jwt.verify)(
-      token,
-      process.env.JWT_SECRET
-    );
-
     const user = await User.findById(decodedToken.id);
 
     res.status(200).json({ status: "success", user });

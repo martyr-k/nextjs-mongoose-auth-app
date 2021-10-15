@@ -1,17 +1,16 @@
 import axios from "axios";
 import Router from "next/router";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import useUser from "../../lib/user";
+import { UserContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
-  const { user, mutate } = useUser();
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {
@@ -28,7 +27,7 @@ const SignUp = () => {
         password: passwordRef.current.value,
       });
 
-      mutate({ user: response.data.user }, false);
+      setUser(response.data.user);
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
