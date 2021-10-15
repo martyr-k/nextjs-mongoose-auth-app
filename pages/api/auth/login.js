@@ -1,8 +1,8 @@
 import nc from "next-connect";
 
-import dbConnect from "../../../lib/dbConnect";
-import User from "../../../models/users";
-import { generateJWT } from "../../../utils/helpers";
+import dbConnect from "@lib/dbConnect";
+import User from "@models/users";
+import { sendToken } from "@utils/helpers";
 
 const handler = nc();
 
@@ -23,13 +23,9 @@ handler.use(dbConnect).post(async (req, res) => {
     }
 
     if (user && (await user.comparePassword(password, user.password))) {
-      res.status(201).json({
-        status: "success",
-        user: {
-          email,
-          token: generateJWT(user._id),
-        },
-      });
+      sendToken(200, user, req, res);
+    } else {
+      throw new Error("Incorrect email or password, please try again.");
     }
   } catch (error) {
     res.status(400).json({
