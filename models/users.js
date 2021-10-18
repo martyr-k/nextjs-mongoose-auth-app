@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please specify a password."],
     select: false,
   },
+  refreshToken: String,
 });
 
 userSchema.pre("save", async function (next) {
