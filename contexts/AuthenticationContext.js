@@ -21,12 +21,13 @@ function AuthenticationProvider({ children }) {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateOnMount: false,
+    revalidateOnMount: false, // if private path, false, else true
+    shouldRetryOnError: false,
     onSuccess: (data) => {
       setToken(data.token);
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error.response.data.message);
 
       // - add query param to hold error message to show toast on login screen
       router.push("/auth/login");

@@ -8,8 +8,12 @@ const handler = nc();
 
 handler.use(dbConnect).get(async (req, res) => {
   try {
-    // 1) get refresh tooken from cookie header, if additional cookies will need to change
+    // 1) get refresh token from cookie header, if additional cookies will need to change
     const refreshToken = req.headers.cookie.split("=")[1];
+
+    if (!refreshToken) {
+      throw new Error("Access denied, unauthorized refresh token.");
+    }
 
     // 2) verify refresh token using database, if not valid throw error
     const user = await User.findOne({ refreshToken });
