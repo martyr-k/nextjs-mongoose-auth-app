@@ -9,7 +9,10 @@ const generateToken = (userId) => {
 };
 
 export const generateRefreshToken = async (userId) => {
-  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET);
+  const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+    //- use different secret?
+    expiresIn: process.env.REFRESH_JWT_EXPIRES_IN,
+  });
 
   const user = await User.findById(userId);
   user.refreshToken = token;
@@ -24,7 +27,7 @@ export const sendToken = async (statusCode, user, req, res) => {
     `refreshToken=${await generateRefreshToken(user._id)}; HttpOnly; ${
       process.env.NODE_ENV === "production" ? "Secure" : ""
     }; SameSite=Lax; Expires=${new Date(
-      Date.now() + process.env.REFRESH_TOKEN_EXPIRES_IN * 24 * 60 * 60 * 1000
+      Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     )}`
   );
   res.status(statusCode).json({
