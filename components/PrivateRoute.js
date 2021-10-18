@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
+
 import { useAuthentication } from "contexts/AuthenticationContext";
 
 const PrivateRoute = ({ children }) => {
   const { token } = useAuthentication();
-  const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     if (!token) {
-      // - toast message?
-      router.push("/auth/login");
+      mutate("/api/auth/refresh-token");
     } else {
       setAuthorized(true);
     }
-  }, [token, router]);
+  }, [mutate, token]);
 
   return authorized && children;
 };

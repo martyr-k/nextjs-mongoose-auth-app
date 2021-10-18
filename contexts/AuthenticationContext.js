@@ -1,24 +1,21 @@
 import { createContext, useState, useContext } from "react";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 import axios from "axios";
 
-const fetcher = (url, token) => {
-  return axios
-    .get(url, {
-      headers: {
-        authorization: token.value,
-      },
-    })
-    .then((response) => {
-      return response.data;
-    });
+const fetcher = (url) => {
+  return axios.get(url).then((response) => {
+    return response.data;
+  });
 };
 
 const AuthenticationContext = createContext();
 
 function AuthenticationProvider({ children }) {
   const [token, setToken] = useState(null);
-  useSWR(token ? ["/api/auth/refresh-token", token] : null, fetcher, {
+  const router = useRouter();
+
+  useSWR("/api/auth/refresh-token", fetcher, {
     refreshInterval: 15 * 60 * 1000,
     refreshWhenHidden: true,
     revalidateIfStale: false,
@@ -30,6 +27,9 @@ function AuthenticationProvider({ children }) {
     },
     onError: (error) => {
       console.log(error);
+
+      // - add query param to hold error message to show toast on login screen
+      router.push("/auth/login");
     },
   });
 

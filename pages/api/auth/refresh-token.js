@@ -1,27 +1,24 @@
-const { promisify } = require("util");
 import nc from "next-connect";
-import jwt from "jsonwebtoken";
 
 import dbConnect from "lib/dbConnect";
+import User from "models/users";
 import { sendToken } from "utils/helpers";
 
 const handler = nc();
 
 handler.use(dbConnect).get(async (req, res) => {
   try {
-    // 1) get refresh tooken from cookie header
+    // 1) get refresh tooken from cookie header, if additional cookies will need to change
     const refreshToken = req.headers.cookie.split("=")[1];
 
-    // 2) verify refresh token using jwt library, if not valid throw error
-    await promisify(jwt.verify)(refreshToken, process.env.JWT_SECRET);
+    // 2) verify refresh token using database, if not valid throw error
+    const user = await User.findOne({ refreshToken });
 
-    // 3) send new jwt and refresh to client
-    const { authorization: token } = req.headers;
-    const decodedToken = await promisify(jwt.verify)(
-      token,
-      process.env.JWT_SECRET
-    );
-    sendToken(200, { _id: decodedToken.id }, req, res);
+    if (!user) {
+      throw new Error("Access denied, user does not exist.");
+    }
+
+    sendToken(200, user, req, res);
   } catch (error) {
     res.status(400).json({
       status: "failure",
