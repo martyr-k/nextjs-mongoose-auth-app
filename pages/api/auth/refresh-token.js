@@ -11,7 +11,6 @@ handler.use(dbConnect).get(async (req, res) => {
   try {
     // 1) get refresh tooken from cookie header
     const refreshToken = req.headers.cookie.split("=")[1];
-    console.log(refreshToken);
 
     // 2) verify refresh token using jwt library, if not valid throw error
     await promisify(jwt.verify)(refreshToken, process.env.JWT_SECRET);
