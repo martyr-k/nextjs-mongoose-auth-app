@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const fetcher = (url) => {
+const authFetcher = (url) => {
   return axios.get(url).then((response) => {
     return response.data;
   });
@@ -14,14 +14,16 @@ const AuthenticationContext = createContext();
 function AuthenticationProvider({ children }) {
   const [token, setToken] = useState(null);
   const router = useRouter();
+  const privatePaths = ["/"];
+  const path = router.asPath.split("?")[0];
 
-  useSWR("/api/auth/refresh-token", fetcher, {
+  useSWR("/api/auth/refresh-token", authFetcher, {
     refreshInterval: 15 * 60 * 1000,
     refreshWhenHidden: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateOnMount: false, // if private path, false, else true
+    revalidateOnMount: !privatePaths.includes(path), // if private path, false, else true
     shouldRetryOnError: false,
     onSuccess: (data) => {
       setToken(data.token);
