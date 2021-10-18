@@ -2,6 +2,19 @@ import jwt from "jsonwebtoken";
 
 import User from "models/users";
 
+export const parseCookies = (req) => {
+  const list = {};
+  const rc = req.headers.cookie;
+
+  rc &&
+    rc.split(";").forEach((cookie) => {
+      const parts = cookie.split("=");
+      list[parts.shift().trim()] = decodeURI(parts.join("="));
+    });
+
+  return list;
+};
+
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
