@@ -10,13 +10,13 @@ const NavigationBar = ({ user }) => {
         <Link href="/" passHref>
           <Navbar.Brand>Demo App</Navbar.Brand>
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Toggle aria-controls="navbarDropdown" />
+        <Navbar.Collapse id="navbarDropdown">
+          {/* <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
-          <Navbar.Text>
+          </Nav> */}
+          <Navbar.Text className="ms-auto">
             {user ? (
               <Link href="/profile" passHref>
                 <p className="mb-0">
@@ -25,7 +25,7 @@ const NavigationBar = ({ user }) => {
               </Link>
             ) : (
               <Link href="/auth/login">
-                <a>LOGIN</a>
+                <a>Login</a>
               </Link>
             )}
           </Navbar.Text>

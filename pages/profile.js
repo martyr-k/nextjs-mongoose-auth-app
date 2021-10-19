@@ -11,7 +11,7 @@ const Profile = () => {
     <>
       <NavigationBar user={currentUser} />
       <Container fluid>
-        <h1>Hello {currentUser?.email}!</h1>
+        <h1>Welcome to the Profile Page!</h1>
       </Container>
     </>
   );

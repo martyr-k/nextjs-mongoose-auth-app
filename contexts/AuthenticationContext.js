@@ -29,10 +29,12 @@ function AuthenticationProvider({ children }) {
       setToken(data.token);
     },
     onError: (error) => {
-      console.log(error.response.data.message);
+      if (privatePaths.includes(path)) {
+        console.log(error.response.data.message);
 
-      // - add query param to hold error message to show toast on login screen
-      router.push("/auth/login");
+        // - add query param to hold error message to show toast on login screen
+        router.push("/auth/login");
+      }
     },
   });
 
