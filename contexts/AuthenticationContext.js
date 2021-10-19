@@ -32,8 +32,6 @@ function AuthenticationProvider({ children }) {
     onError: (error) => {
       if (privatePaths.includes(path)) {
         toast.error(error.response.data.message);
-
-        // - add query param to hold error message to show toast on login screen
         router.push("/auth/login");
       }
     },

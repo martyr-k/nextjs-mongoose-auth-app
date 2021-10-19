@@ -28,6 +28,7 @@ const Login = () => {
         password: passwordRef.current.value,
       });
 
+      toast.success("Success!");
       setToken(response.data.token);
     } catch (error) {
       if (error.response) {

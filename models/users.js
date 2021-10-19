@@ -29,7 +29,7 @@ userSchema.methods.comparePassword = async (candidatePassword, userPassword) =>
 
 userSchema.methods.generateRefreshToken = function () {
   const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    //- use different secret?
+    // - use different secret?
     expiresIn: process.env.REFRESH_JWT_EXPIRES_IN,
   });
 
