@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { toast } from "react-toastify";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
@@ -30,7 +31,7 @@ const SignUp = () => {
       setToken(response.data.token);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       }
       console.log(error);
     }

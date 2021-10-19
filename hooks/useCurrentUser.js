@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
@@ -19,7 +20,7 @@ const useCurrentUser = () => {
           setCurrentUser(response.data.user);
         }
       } catch (error) {
-        console.log(error.response.data);
+        toast.error(error.response.data);
       }
     })();
   }, [token]);

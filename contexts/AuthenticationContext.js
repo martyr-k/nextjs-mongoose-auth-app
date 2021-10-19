@@ -2,6 +2,7 @@ import { createContext, useState, useContext } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const authFetcher = (url) => {
   return axios.get(url).then((response) => {
@@ -30,7 +31,7 @@ function AuthenticationProvider({ children }) {
     },
     onError: (error) => {
       if (privatePaths.includes(path)) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
 
         // - add query param to hold error message to show toast on login screen
         router.push("/auth/login");
@@ -49,8 +50,14 @@ function AuthenticationProvider({ children }) {
         router.push("/");
       }
     } catch (error) {
-      console.log(error.response.data.message);
-      // - toast with message + click here to reload the page
+      toast.error(
+        <div className="text-center">
+          <p>{error.response.data.message}</p>
+          <button className="btn btn-primary" onClick={router.reload}>
+            Reload
+          </button>
+        </div>
+      );
     }
   };
 
