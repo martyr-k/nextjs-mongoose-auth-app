@@ -1,11 +1,11 @@
 import axios from "axios";
 import Router from "next/router";
 import { useRef, useEffect } from "react";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 
+import PageLayout from "components/PageLayout";
 import { useAuthentication } from "contexts/AuthenticationContext";
 
 const SignUp = () => {
@@ -38,9 +38,9 @@ const SignUp = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <PageLayout>
       <Form
-        className="mx-auto"
+        className="mx-auto mt-5"
         style={{ maxWidth: "50%" }}
         onSubmit={handleSubmit}
       >
@@ -68,7 +68,7 @@ const SignUp = () => {
           Submit
         </Button>
       </Form>
-    </Container>
+    </PageLayout>
   );
 };
 

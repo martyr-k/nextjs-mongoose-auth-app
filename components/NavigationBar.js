@@ -33,9 +33,14 @@ const NavigationBar = ({ user }) => {
                 </button>
               </>
             ) : (
-              <Link href="/auth/login">
-                <a>Login</a>
-              </Link>
+              <>
+                <Link href="/auth/login">
+                  <a className="me-2">Login</a>
+                </Link>
+                <Link href="/auth/signup">
+                  <a>Sign Up</a>
+                </Link>
+              </>
             )}
           </Navbar.Text>
         </Navbar.Collapse>

@@ -12,23 +12,19 @@ handler.use(dbConnect).get(async (req, res) => {
     const { refreshToken } = parseCookies(req);
 
     if (!refreshToken) {
-      throw new Error(
-        "An error occured, please log-in to confirm your indentity."
-      );
+      throw new Error("Please login to access this page.");
     }
 
     // 2) verify refresh token using database, if not valid throw error
     const user = await User.findOne({ refreshToken });
 
     if (!user) {
-      throw new Error(
-        "An error occured, please log-in to confirm your indentity."
-      );
+      throw new Error("Please login to access this page.");
     }
 
     sendToken(200, user, req, res);
   } catch (error) {
-    res.status(400).json({
+    res.status(401).json({
       status: "failure",
       message: error.message,
     });
