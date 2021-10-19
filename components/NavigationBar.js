@@ -2,8 +2,11 @@ import { Container } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
 // import { Nav } from "react-bootstrap";
 import Link from "next/link";
+import { useAuthentication } from "contexts/AuthenticationContext";
 
 const NavigationBar = ({ user }) => {
+  const { signOut } = useAuthentication();
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -18,11 +21,17 @@ const NavigationBar = ({ user }) => {
           </Nav> */}
           <Navbar.Text className="ms-auto">
             {user ? (
-              <Link href="/profile" passHref>
-                <p className="mb-0">
-                  Welcome, <a>{user.email}</a>
-                </p>
-              </Link>
+              <>
+                <span className="me-3">
+                  Welcome,{" "}
+                  <Link href="/profile">
+                    <a>{user.email}</a>
+                  </Link>
+                </span>
+                <button className="btn btn-danger" onClick={signOut}>
+                  Sign out
+                </button>
+              </>
             ) : (
               <Link href="/auth/login">
                 <a>Login</a>

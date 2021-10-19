@@ -38,8 +38,24 @@ function AuthenticationProvider({ children }) {
     },
   });
 
+  const signOut = async () => {
+    try {
+      await axios.delete("/api/auth/logout");
+
+      setToken(null);
+      if (path === "/") {
+        router.reload();
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      // - toast with message + click here to reload the page
+    }
+  };
+
   return (
-    <AuthenticationContext.Provider value={{ token, setToken }}>
+    <AuthenticationContext.Provider value={{ token, setToken, signOut }}>
       {children}
     </AuthenticationContext.Provider>
   );
