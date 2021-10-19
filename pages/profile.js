@@ -1,19 +1,14 @@
-import { Container } from "react-bootstrap";
-
 import PrivateRoute from "components/PrivateRoute";
 import useCurrentUser from "hooks/useCurrentUser";
-import NavigationBar from "components/NavigationBar";
+import PageLayout from "components/PageLayout";
 
 const Profile = () => {
   const currentUser = useCurrentUser();
 
   return (
-    <>
-      <NavigationBar user={currentUser} />
-      <Container fluid>
-        <h1>Welcome to the Profile Page!</h1>
-      </Container>
-    </>
+    <PageLayout user={currentUser}>
+      <h1>Welcome to the Profile Page!</h1>
+    </PageLayout>
   );
 };
 
