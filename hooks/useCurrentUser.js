@@ -7,6 +7,7 @@ import { useAuthentication } from "contexts/AuthenticationContext";
 const useCurrentUser = () => {
   const { token } = useAuthentication();
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -18,6 +19,9 @@ const useCurrentUser = () => {
             },
           });
           setCurrentUser(response.data.user);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
         }
       } catch (error) {
         toast.error(error.response.data);
@@ -25,7 +29,7 @@ const useCurrentUser = () => {
     })();
   }, [token]);
 
-  return currentUser;
+  return { currentUser, isLoading };
 };
 
 export default useCurrentUser;

@@ -1,11 +1,14 @@
+import LoadingSpinner from "components/LoadingSpinner";
 import PrivateRoute from "components/PrivateRoute";
 import useCurrentUser from "hooks/useCurrentUser";
 import PageLayout from "components/PageLayout";
 
 const Profile = () => {
-  const currentUser = useCurrentUser();
+  const { currentUser, isLoading } = useCurrentUser();
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <PageLayout user={currentUser}>
       <h1>Welcome to the Profile Page!</h1>
     </PageLayout>
