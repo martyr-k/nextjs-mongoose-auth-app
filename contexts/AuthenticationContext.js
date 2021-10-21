@@ -40,13 +40,8 @@ function AuthenticationProvider({ children }) {
   const signOut = async () => {
     try {
       await axios.delete("/api/auth/logout");
-
       setToken(null);
-      if (path === "/") {
-        router.reload();
-      } else {
-        router.push("/");
-      }
+      path === "/" ? router.reload() : router.push("/");
     } catch (error) {
       toast.error(
         <div className="text-center">

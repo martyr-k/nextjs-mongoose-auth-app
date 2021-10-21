@@ -1,5 +1,5 @@
 import { AuthenticationProvider } from "contexts/AuthenticationContext";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,13 +11,9 @@ function App({ Component, pageProps }) {
       <ToastContainer
         position="top-center"
         autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
+        hideProgressBar={true}
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+        transition={Zoom}
       />
       <AuthenticationProvider>
         <Component {...pageProps} />
