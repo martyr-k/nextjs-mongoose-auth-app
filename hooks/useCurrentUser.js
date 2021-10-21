@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
@@ -17,7 +18,12 @@ const userFetcher = (url, token) => {
 
 function useCurrentUser() {
   const { token } = useAuthentication();
-  const { data, error } = useSWR(token && ["/api/users", token], userFetcher);
+  const { data, error } = useSWR(token && ["/api/users", token], userFetcher, {
+    errorRetryCount: 0,
+    onError: (error) => {
+      toast.error(error.response.data);
+    },
+  });
 
   return {
     currentUser: data?.user,
