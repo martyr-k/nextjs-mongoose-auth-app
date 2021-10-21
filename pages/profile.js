@@ -1,10 +1,10 @@
 import LoadingSpinner from "components/LoadingSpinner";
 import PrivateRoute from "components/PrivateRoute";
-import useCurrentUser from "hooks/useCurrentUser";
+import useUser from "hooks/useCurrentUser";
 import PageLayout from "components/PageLayout";
 
 const Profile = () => {
-  const { currentUser, isLoading } = useCurrentUser();
+  const { currentUser, isLoading } = useUser();
 
   return isLoading ? (
     <LoadingSpinner />

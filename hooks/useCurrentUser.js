@@ -1,35 +1,29 @@
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
-const useCurrentUser = () => {
-  const { token } = useAuthentication();
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        if (token) {
-          const response = await axios.get(`/api/users`, {
-            headers: {
-              authorization: token.value,
-            },
-          });
-          setCurrentUser(response.data.user);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-        }
-      } catch (error) {
-        toast.error(error.response.data);
-      }
-    })();
-  }, [token]);
-
-  return { currentUser, isLoading };
+const userFetcher = (url, token) => {
+  return axios
+    .get(url, {
+      headers: {
+        authorization: token.value,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 };
+
+function useCurrentUser() {
+  const { token } = useAuthentication();
+  const { data, error } = useSWR(token && ["/api/users", token], userFetcher);
+
+  return {
+    currentUser: data?.user,
+    isLoading: !error && !data && token,
+    isError: error,
+  };
+}
 
 export default useCurrentUser;
