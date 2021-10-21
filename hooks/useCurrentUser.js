@@ -20,6 +20,7 @@ function useCurrentUser() {
   const { token } = useAuthentication();
   const { data, error } = useSWR(token && ["/api/users", token], userFetcher, {
     errorRetryCount: 0,
+    refreshWhenHidden: true,
     onError: (error) => {
       toast.error(error.response.data);
     },

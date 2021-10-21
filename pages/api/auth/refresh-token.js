@@ -10,14 +10,12 @@ handler.use(dbConnect).get(async (req, res) => {
   try {
     // 1) get refresh token from cookie header
     const { refreshToken } = parseCookies(req);
-
     if (!refreshToken) {
       throw new Error("Please login to access this page.");
     }
 
     // 2) verify refresh token using database, if not valid throw error
     const user = await User.findOne({ refreshToken });
-
     if (!user) {
       throw new Error("Please login to access this page.");
     }
