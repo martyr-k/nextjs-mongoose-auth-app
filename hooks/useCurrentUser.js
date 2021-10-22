@@ -22,6 +22,7 @@ function useCurrentUser() {
     errorRetryCount: 0,
     refreshWhenHidden: true,
     onError: (error) => {
+      console.log(error);
       toast.error(error.response.data);
     },
   });
