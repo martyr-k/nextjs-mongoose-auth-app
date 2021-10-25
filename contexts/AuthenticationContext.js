@@ -24,7 +24,7 @@ function AuthenticationProvider({ children }) {
     revalidateIfStale: false,
     revalidateOnFocus: true,
     revalidateOnReconnect: false,
-    revalidateOnMount: true, // if private path, false, else true
+    revalidateOnMount: true,
     shouldRetryOnError: false,
     onSuccess: (data) => {
       setToken(data.token);
