@@ -16,7 +16,7 @@ const fetcher = (url, token) => {
     });
 };
 
-function useSecureData(path) {
+function useSecuredData(path) {
   const { token } = useAuthentication();
   const { data, error } = useSWR(token && [path, token], fetcher, {
     errorRetryCount: 0,
@@ -34,4 +34,4 @@ function useSecureData(path) {
   };
 }
 
-export default useSecureData;
+export default useSecuredData;
