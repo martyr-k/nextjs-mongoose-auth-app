@@ -17,7 +17,7 @@ export const parseCookies = (req) => {
 
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_EXPIRES_IN * 60 * 1000,
   });
 };
 
@@ -42,7 +42,7 @@ export const sendToken = async (statusCode, user, req, res) => {
     status: "success",
     token: {
       value: generateToken(user._id),
-      expiry: Date.now(),
+      expiry: Date.now() + process.env.JWT_EXPIRES_IN * 60 * 1000,
     },
   });
 };

@@ -19,7 +19,7 @@ function AuthenticationProvider({ children }) {
   const path = router.asPath.split("?")[0];
 
   useSWR("/api/auth/refresh-token", authFetcher, {
-    refreshInterval: 15 * 60 * 1000,
+    refreshInterval: 14 * 60 * 1000, // jwt may expire before refreh occurs, reduce time to make sure
     refreshWhenHidden: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
