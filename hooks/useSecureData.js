@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
-const userFetcher = (url, token) => {
+const fetcher = (url, token) => {
   return axios
     .get(url, {
       headers: {
@@ -16,9 +16,9 @@ const userFetcher = (url, token) => {
     });
 };
 
-function useCurrentUser() {
+function useSecureData(path) {
   const { token } = useAuthentication();
-  const { data, error } = useSWR(token && ["/api/users", token], userFetcher, {
+  const { data, error } = useSWR(token && [path, token], fetcher, {
     errorRetryCount: 0,
     refreshWhenHidden: true,
     onError: (error) => {
@@ -28,10 +28,10 @@ function useCurrentUser() {
   });
 
   return {
-    currentUser: data?.user,
+    data,
     isLoading: !error && !data && token,
     isError: error,
   };
 }
 
-export default useCurrentUser;
+export default useSecureData;

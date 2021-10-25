@@ -1,9 +1,10 @@
 import LoadingSpinner from "components/LoadingSpinner";
-import useUser from "hooks/useCurrentUser";
+import useSecureData from "hooks/useSecureData";
 import PageLayout from "components/PageLayout";
 
 const HomePage = () => {
-  const { currentUser, isLoading } = useUser();
+  const { data, isLoading } = useSecureData("/api/users");
+  const currentUser = data?.user;
 
   return isLoading ? (
     <LoadingSpinner />
