@@ -22,7 +22,7 @@ function AuthenticationProvider({ children }) {
     refreshInterval: 14 * 60 * 1000, // jwt may expire before refreh occurs, reduce time to make sure
     refreshWhenHidden: true,
     revalidateIfStale: false,
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
     revalidateOnReconnect: false,
     revalidateOnMount: !privatePaths.includes(path), // if private path, false, else true
     shouldRetryOnError: false,
@@ -34,6 +34,7 @@ function AuthenticationProvider({ children }) {
         toast.error(error.response.data.message);
         router.push("/auth/login");
       }
+      setToken(null);
     },
   });
 
