@@ -5,12 +5,11 @@ import PageLayout from "components/PageLayout";
 
 const Profile = () => {
   const { data, isLoading } = useSecureData("/api/users");
-  const currentUser = data?.user;
 
   return isLoading ? (
     <LoadingSpinner />
   ) : (
-    <PageLayout user={currentUser}>
+    <PageLayout>
       <h1>Welcome to the Profile Page!</h1>
     </PageLayout>
   );

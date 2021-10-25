@@ -1,11 +1,14 @@
 import { Container } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
+import useSecureData from "hooks/useSecureData";
 // import { Nav } from "react-bootstrap";
 import Link from "next/link";
 import { useAuthentication } from "contexts/AuthenticationContext";
 
-const NavigationBar = ({ user }) => {
+const NavigationBar = () => {
   const { signOut } = useAuthentication();
+  const { data } = useSecureData("/api/users");
+  const user = data?.user;
 
   return (
     <Navbar bg="light" expand="lg">
