@@ -2,9 +2,13 @@ import { Container } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
 // import { Nav } from "react-bootstrap";
 import Link from "next/link";
-import { useAuthentication } from "contexts/AuthenticationContext";
 
-const NavigationBar = ({ user }) => {
+import { useAuthentication } from "contexts/AuthenticationContext";
+import useSecuredData from "hooks/useSecuredData";
+
+const NavigationBar = () => {
+  const { data } = useSecuredData("/api/users");
+  const user = data?.user;
   const { signOut } = useAuthentication();
 
   return (

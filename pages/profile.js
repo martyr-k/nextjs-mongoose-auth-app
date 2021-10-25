@@ -1,10 +1,9 @@
 import LoadingSpinner from "components/LoadingSpinner";
-import PrivateRoute from "components/PrivateRoute";
 import useSecuredData from "hooks/useSecuredData";
 import PageLayout from "components/PageLayout";
 
 const Profile = () => {
-  const { data, isLoading } = useSecuredData("/api/users");
+  const { data, isLoading } = useSecuredData("/api/users", "/auth/login");
   const currentUser = data?.user;
 
   return isLoading ? (
@@ -16,12 +15,4 @@ const Profile = () => {
   );
 };
 
-const ProfilePage = () => {
-  return (
-    <PrivateRoute>
-      <Profile />
-    </PrivateRoute>
-  );
-};
-
-export default ProfilePage;
+export default Profile;
