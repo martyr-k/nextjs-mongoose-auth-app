@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
-// import { Nav } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import Link from "next/link";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
@@ -18,10 +18,14 @@ const NavigationBar = () => {
         </Link>
         <Navbar.Toggle aria-controls="navbarDropdown" />
         <Navbar.Collapse id="navbarDropdown">
-          {/* <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav> */}
+          <Nav className="me-auto">
+            {/* <Nav.Link href="#home">Home</Nav.Link> */}
+            {user && (
+              <Link href="/events/new">
+                <a>Create an Event</a>
+              </Link>
+            )}
+          </Nav>
           <Navbar.Text className="ms-auto">
             {user ? (
               <>
