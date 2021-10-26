@@ -53,7 +53,7 @@ function useAuthorizedClient(redirectTo, ...roles) {
     errorRetryCount: 0,
     refreshWhenHidden: true,
     onError: (error) => {
-      console.log(error);
+      console.log("useAuthorizedClient:", error);
       toast.error(error.response.data);
     },
   });
