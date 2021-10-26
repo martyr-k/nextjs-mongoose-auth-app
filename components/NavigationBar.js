@@ -4,11 +4,10 @@ import { Navbar } from "react-bootstrap";
 import Link from "next/link";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
-import useSecuredData from "hooks/useSecuredData";
+import useAuthorizedClient from "hooks/useAuthorizedClient";
 
 const NavigationBar = () => {
-  const { data } = useSecuredData("/api/users");
-  const user = data?.user;
+  const { user } = useAuthorizedClient();
   const { signOut } = useAuthentication();
 
   return (
@@ -32,8 +31,8 @@ const NavigationBar = () => {
                     <a>{user.email}</a>
                   </Link>
                 </span>
-                <button className="btn btn-danger" onClick={signOut}>
-                  Sign out
+                <button className="btn btn-outline-danger" onClick={signOut}>
+                  <i className="bi bi-box-arrow-right" />
                 </button>
               </>
             ) : (
