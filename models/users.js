@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -33,10 +33,7 @@ userSchema.methods.comparePassword = async (candidatePassword, userPassword) =>
   bcrypt.compare(candidatePassword, userPassword);
 
 userSchema.methods.generateRefreshToken = function () {
-  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    // - use different secret?
-    expiresIn: process.env.REFRESH_JWT_EXPIRES_IN,
-  });
+  const token = uuidv4();
 
   this.refreshToken = token;
   return token;

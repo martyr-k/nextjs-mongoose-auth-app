@@ -17,7 +17,7 @@ export const parseCookies = (req) => {
 
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN * 60 * 1000,
+    expiresIn: `${process.env.JWT_EXPIRES_IN}m`,
   });
 };
 
@@ -34,9 +34,9 @@ export const sendToken = async (statusCode, user, req, res) => {
     "Set-Cookie",
     `refreshToken=${await getRefreshToken(user._id)}; HttpOnly; ${
       process.env.NODE_ENV === "production" ? "Secure" : ""
-    }; SameSite=Lax; Expires=${new Date(
-      Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    )}`
+    }; SameSite=Lax; Max-Age=${
+      process.env.REFRESH_TOKEN_EXPIRES_IN * 24 * 60 * 60 * 1000
+    }`
   );
   res.status(statusCode).json({
     status: "success",
