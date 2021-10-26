@@ -22,7 +22,7 @@ function AuthenticationProvider({ children }) {
     refreshInterval: 14 * 60 * 1000, // jwt may expire before refreh occurs, reduce time to make sure
     refreshWhenHidden: true,
     revalidateIfStale: false,
-    revalidateOnFocus: true,
+    revalidateOnFocus: false,
     revalidateOnReconnect: false,
     revalidateOnMount: true,
     shouldRetryOnError: false,
@@ -49,7 +49,10 @@ function AuthenticationProvider({ children }) {
       toast.error(
         <div className="text-center">
           <p>{error.response.data.message}</p>
-          <button className="btn btn-primary" onClick={router.reload}>
+          <button
+            className="btn btn-primary"
+            onClick={path === "/" ? () => setToken(null) : router.reload}
+          >
             Reload
           </button>
         </div>
