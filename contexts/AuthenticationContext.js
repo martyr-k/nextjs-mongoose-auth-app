@@ -40,7 +40,7 @@ function AuthenticationProvider({ children }) {
 
   const signOut = async () => {
     try {
-      await axios.delete("/api/auth/logout");
+      await axios.post("/api/auth/logout");
       setToken(null);
       if (privatePaths.includes(path)) {
         router.push("/");
