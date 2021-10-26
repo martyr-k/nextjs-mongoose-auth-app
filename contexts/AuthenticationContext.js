@@ -24,7 +24,7 @@ function AuthenticationProvider({ children }) {
     revalidateIfStale: false,
     revalidateOnFocus: true,
     revalidateOnReconnect: false,
-    revalidateOnMount: !privatePaths.includes(path), // if private path, false, else true
+    revalidateOnMount: true,
     shouldRetryOnError: false,
     onSuccess: (data) => {
       setToken(data.token);
@@ -42,7 +42,9 @@ function AuthenticationProvider({ children }) {
     try {
       await axios.delete("/api/auth/logout");
       setToken(null);
-      path === "/" ? router.reload() : router.push("/");
+      if (privatePaths.includes(path)) {
+        router.push("/");
+      }
     } catch (error) {
       toast.error(
         <div className="text-center">

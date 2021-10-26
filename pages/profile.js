@@ -1,26 +1,17 @@
 import LoadingSpinner from "components/LoadingSpinner";
-import PrivateRoute from "components/PrivateRoute";
-import useSecureData from "hooks/useSecureData";
+import useAuthorizedClient from "hooks/useAuthorizedClient";
 import PageLayout from "components/PageLayout";
 
 const Profile = () => {
-  const { data, isLoading } = useSecureData("/api/users");
+  const { user, isLoading } = useAuthorizedClient("/auth/login");
 
   return isLoading ? (
     <LoadingSpinner />
   ) : (
     <PageLayout>
-      <h1>Welcome to the Profile Page!</h1>
+      <h1>Welcome to the Profile page, {user.email}!</h1>
     </PageLayout>
   );
 };
 
-const ProfilePage = () => {
-  return (
-    <PrivateRoute>
-      <Profile />
-    </PrivateRoute>
-  );
-};
-
-export default ProfilePage;
+export default Profile;

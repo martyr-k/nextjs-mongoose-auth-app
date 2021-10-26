@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please specify a password."],
     select: false,
   },
+  role: {
+    type: String,
+    enum: ["user", "admin", "developer"],
+    default: "user",
+  },
   refreshToken: String,
 });
 
