@@ -20,9 +20,9 @@ const NavigationBar = () => {
         <Navbar.Collapse id="navbarDropdown">
           <Nav className="me-auto">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
-            {user && (
-              <Link href="/events/new">
-                <a>Create an Event</a>
+            {user && user.role === "admin" && (
+              <Link href="/events/new" passHref>
+                <Nav.Link>Create an Event</Nav.Link>
               </Link>
             )}
           </Nav>
