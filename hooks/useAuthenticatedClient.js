@@ -18,34 +18,7 @@ const fetcher = (url, token) => {
     });
 };
 
-// function useSecuredData(path, redirectTo) {
-//   const router = useRouter();
-//   const { token } = useAuthentication();
-//   const { data, error } = useSWR(token && [path, token], fetcher, {
-//     errorRetryCount: 0,
-//     refreshWhenHidden: true,
-//     onError: (error) => {
-//       console.log(error);
-//       toast.error(error.response.data);
-//     },
-//   });
-//   const isLoading = !error && !data;
-
-//   useEffect(() => {
-//     if (!data && isLoading) return;
-
-//     if (!data && !isLoading && redirectTo) {
-//       router.push(redirectTo);
-//     }
-//   }, [data, isLoading, redirectTo, router, token]);
-
-//   return {
-//     data,
-//     isLoading,
-//   };
-// }
-
-function useAuthorizedClient(redirectTo, ...roles) {
+function useAuthenticatedClient(redirectTo, ...roles) {
   const router = useRouter();
   const { token } = useAuthentication();
 
@@ -55,9 +28,9 @@ function useAuthorizedClient(redirectTo, ...roles) {
     onError: (error) => {
       if (error.response.data === "jwt expired") {
         // mutate auth refresh?
-        console.log("useAuthorizedClient:", error.response);
+        console.log("useAuthenticatedClient:", error.response);
       } else {
-        console.log("useAuthorizedClient:", error);
+        console.log("useAuthenticatedClient:", error);
         toast.error(error.response.data);
       }
     },
@@ -87,4 +60,4 @@ function useAuthorizedClient(redirectTo, ...roles) {
   };
 }
 
-export default useAuthorizedClient;
+export default useAuthenticatedClient;

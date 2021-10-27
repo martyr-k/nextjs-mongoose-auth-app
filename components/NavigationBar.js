@@ -4,10 +4,10 @@ import { Nav } from "react-bootstrap";
 import Link from "next/link";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
-import useAuthorizedClient from "hooks/useAuthorizedClient";
+import useAuthenticatedClient from "hooks/useAuthenticatedClient";
 
 const NavigationBar = () => {
-  const { user } = useAuthorizedClient();
+  const { user } = useAuthenticatedClient();
   const { signOut } = useAuthentication();
 
   return (

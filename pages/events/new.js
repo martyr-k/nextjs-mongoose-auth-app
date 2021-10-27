@@ -1,9 +1,9 @@
 import LoadingSpinner from "components/LoadingSpinner";
-import useAuthorizedClient from "hooks/useAuthorizedClient";
+import useAuthenticatedClient from "hooks/useAuthenticatedClient";
 import PageLayout from "components/PageLayout";
 
 const CreateEvent = () => {
-  const { isLoading } = useAuthorizedClient(
+  const { isLoading } = useAuthenticatedClient(
     "/auth/login",
     "admin",
     "developer"
