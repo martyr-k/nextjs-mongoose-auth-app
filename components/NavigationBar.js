@@ -19,7 +19,6 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="navbarDropdown" />
         <Navbar.Collapse id="navbarDropdown">
           <Nav className="me-auto">
-            {/* <Nav.Link href="#home">Home</Nav.Link> */}
             {["admin", "developer"].includes(user?.role) && (
               <Link href="/events/new" passHref>
                 <Nav.Link>Create an Event</Nav.Link>
