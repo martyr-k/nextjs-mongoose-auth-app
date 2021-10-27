@@ -53,8 +53,13 @@ function useAuthorizedClient(redirectTo, ...roles) {
     errorRetryCount: 0,
     refreshWhenHidden: true,
     onError: (error) => {
-      console.log("useAuthorizedClient:", error);
-      toast.error(error.response.data);
+      if (error.response.data === "jwt expired") {
+        // mutate auth refresh?
+        console.log("useAuthorizedClient:", error.response);
+      } else {
+        console.log("useAuthorizedClient:", error);
+        toast.error(error.response.data);
+      }
     },
   });
   const isLoading = !error && !data;

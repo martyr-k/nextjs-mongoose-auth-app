@@ -1,7 +1,6 @@
 import nc from "next-connect";
 
 import dbConnect from "lib/dbConnect";
-import User from "models/users";
 import { parseCookies } from "utils/helpers";
 
 const handler = nc();
