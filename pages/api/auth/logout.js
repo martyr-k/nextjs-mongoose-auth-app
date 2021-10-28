@@ -7,7 +7,6 @@ const handler = nc();
 
 handler.use(dbConnect).post((req, res) => {
   try {
-    // 1) get refresh token from cookie header
     const { refreshToken } = parseCookies(req);
 
     if (!refreshToken) {

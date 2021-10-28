@@ -8,7 +8,7 @@ import useAuthenticatedClient from "hooks/useAuthenticatedClient";
 
 const NavigationBar = () => {
   const { user } = useAuthenticatedClient();
-  const { signOut } = useAuthentication();
+  const { logout } = useAuthentication();
 
   return (
     <Navbar bg="light" expand="lg">
@@ -34,7 +34,7 @@ const NavigationBar = () => {
                     <a>{user.email}</a>
                   </Link>
                 </span>
-                <button className="btn btn-outline-danger" onClick={signOut}>
+                <button className="btn btn-outline-danger" onClick={logout}>
                   <i className="bi bi-box-arrow-right" />
                 </button>
               </>

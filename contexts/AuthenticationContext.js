@@ -38,7 +38,7 @@ function AuthenticationProvider({ children }) {
     },
   });
 
-  const signOut = async () => {
+  const logout = async () => {
     try {
       await axios.post("/api/auth/logout");
       setToken(null);
@@ -61,7 +61,7 @@ function AuthenticationProvider({ children }) {
   };
 
   return (
-    <AuthenticationContext.Provider value={{ token, setToken, signOut }}>
+    <AuthenticationContext.Provider value={{ token, setToken, logout }}>
       {children}
     </AuthenticationContext.Provider>
   );
