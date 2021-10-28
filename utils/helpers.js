@@ -21,7 +21,7 @@ const generateToken = (userId) => {
   });
 };
 
-export const getRefreshToken = async (userId) => {
+const getRefreshToken = async (userId) => {
   const user = await User.findById(userId);
   const token = user.generateRefreshToken();
   await user.save();
