@@ -4,10 +4,10 @@ import User from "models/users";
 
 export const parseCookies = (req) => {
   const list = {};
-  const rc = req.headers.cookie;
+  const cookies = req.headers.cookie;
 
-  rc &&
-    rc.split(";").forEach((cookie) => {
+  cookies &&
+    cookies.split(";").forEach((cookie) => {
       const parts = cookie.split("=");
       list[parts.shift().trim()] = decodeURI(parts.join("="));
     });
