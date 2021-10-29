@@ -28,11 +28,14 @@ function useAuthenticatedClient(redirectTo, ...roles) {
   const { data, error } = useSWR(token && ["/api/users", token], fetcher, {
     shouldRetryOnError: false,
     refreshWhenHidden: true,
+    revalidateOnFocus: false,
     onError: (error) => {
-      if (error.response.data === "jwt expired" && requestCount === 0) {
-        requestCount = 1;
-        mutate("/api/auth/refresh-token");
-      } else if (error?.response.data !== "jwt expired") {
+      if (error.response.data === "jwt expired") {
+        if (requestCount < 1) {
+          requestCount = 1;
+          mutate("/api/auth/refresh-token");
+        }
+      } else {
         console.log("useAuthenticatedClient:", error);
         toast.error(error.response.data);
       }
