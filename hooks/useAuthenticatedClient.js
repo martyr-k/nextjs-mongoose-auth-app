@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import { useAuthentication } from "contexts/AuthenticationContext";
 
-let requestCount = 0;
+const errorCache = [];
 
 const fetcher = (url, token) => {
   return axios
@@ -29,19 +29,23 @@ function useAuthenticatedClient(redirectTo, ...roles) {
     shouldRetryOnError: false,
     refreshWhenHidden: true,
     revalidateOnFocus: false,
-    onError: (error) => {
+    onError: (error, key) => {
       if (error.response.data === "jwt expired") {
-        if (requestCount < 1) {
-          requestCount = 1;
+        const prevRequest = errorCache[errorCache.length - 1];
+        if (!prevRequest) {
           mutate("/api/auth/refresh-token");
+          errorCache.push({ key, time: Date.now() });
+        } else if (
+          (prevRequest.key === key && prevRequest.time + 3000 < Date.now()) ||
+          prevRequest.key !== key
+        ) {
+          mutate("/api/auth/refresh-token");
+          errorCache.push({ key, time: Date.now() });
         }
       } else {
         console.log("useAuthenticatedClient:", error);
         toast.error(error.response.data);
       }
-    },
-    onSuccess: () => {
-      requestCount = 0;
     },
   });
   const isLoading = !error && !data;
