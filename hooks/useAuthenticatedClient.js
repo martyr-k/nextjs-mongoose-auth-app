@@ -31,13 +31,13 @@ function useAuthenticatedClient(redirectTo, ...roles) {
     revalidateOnFocus: false,
     onError: (error, key) => {
       if (error.response.data === "jwt expired") {
-        const prevRequest = errorCache[errorCache.length - 1];
-        if (!prevRequest) {
+        const prevError = errorCache[errorCache.length - 1];
+        if (!prevError) {
           mutate("/api/auth/refresh-token");
           errorCache.push({ key, time: Date.now() });
         } else if (
-          (prevRequest.key === key && prevRequest.time + 3000 < Date.now()) ||
-          prevRequest.key !== key
+          (prevError.key === key && prevError.time + 3000 < Date.now()) ||
+          prevError.key !== key
         ) {
           mutate("/api/auth/refresh-token");
           errorCache.push({ key, time: Date.now() });
