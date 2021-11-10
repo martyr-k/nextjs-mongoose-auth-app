@@ -51,11 +51,14 @@ function useAuthenticatedClient(redirectTo, ...roles) {
   const isLoading = !error && !data;
 
   useEffect(() => {
-    if (!redirectTo || isLoading) return;
+    if (!redirectTo) return;
 
     // protected routes
-    if (!data && !isLoading && redirectTo) {
-      router.push(redirectTo);
+    if (!data && redirectTo) {
+      if ((!token && isLoading) || !isLoading) {
+        router.push(redirectTo);
+        toast.error("Please login to access this page.");
+      }
     }
 
     // restricted routes
