@@ -54,11 +54,9 @@ function useAuthenticatedClient(redirectTo, ...roles) {
     if (!redirectTo) return;
 
     // protected routes
-    if (!data && redirectTo) {
-      if ((!token && isLoading) || !isLoading) {
-        router.push(redirectTo);
-        toast.error("Please login to access this page.");
-      }
+    if (!data && !isLoading && redirectTo) {
+      router.push(redirectTo);
+      toast.error("Please login to access this page.");
     }
 
     // restricted routes
